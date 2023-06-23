@@ -10,7 +10,7 @@ GameMap::GameMap() {
 		visibleMap.push_back(&z);
 	}
 	dynamicObjects = std::vector<DynamicObject>();
-	Monster mon = Monster(Position(62,62));
+	Monster mon = Monster(Position(15,15));
 	this->dynamicObjects.push_back(mon.toDyn());
 	Player pl = Player(Position(4, 4));
 	this->dynamicObjects.push_back(pl.toDyn());

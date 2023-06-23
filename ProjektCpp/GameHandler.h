@@ -9,7 +9,7 @@ class GameHandler{
         GameHandler();
         ~GameHandler();
         //init map, player, monster and start the main game loop
-        void run();
+        bool run();
     private:
         //GameMap gameMap;
         //MapDrawer mapDrawer;

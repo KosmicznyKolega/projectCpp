@@ -5,13 +5,16 @@
 #include "Position.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
+
 //================================================//
 GameHandler::GameHandler() {}
 GameHandler::~GameHandler() {}
-void GameHandler::run() {
-	sf::RenderWindow window(sf::VideoMode(760, 760), "gra123");
+bool GameHandler::run() {
+	sf::RenderWindow window(sf::VideoMode(760, 760), "LABIRYNT");
 	MapProvider mapProvider;
 	GameMap gameMap;
+	bool endgame = false;
+	bool win = false;
 	gameMap.initMap(mapProvider.getMapOfStaticObjects());
 	while (window.isOpen()) {
 		sf::Clock clock;
@@ -54,13 +57,13 @@ void GameHandler::run() {
 		}
 		if (gameMap.getDynamicObjects()[0].getPosition() == gameMap.getDynamicObjects()[1].getPosition()) {
 			std::cout << "przegrales" << std::endl;
-			window.close();
+			endgame = true;
 
 		}
 		else if (gameMap.getGameMap()[gameMap.getDynamicObjects()[1].getPosition().getX() + (gameMap.getDynamicObjects()[1].getPosition().getY() * 120)].didWin()) {
 			std::cout << "wygrales" <<std::endl;
-			window.close();
-
+			endgame = true;
+			win = true;
 		}
 		//monster move
 		if (gameMap.getDynamicObjects()[0].hasDestination()) {
@@ -78,7 +81,7 @@ void GameHandler::run() {
 		}
 		if (gameMap.getDynamicObjects()[0].getPosition() == gameMap.getDynamicObjects()[1].getPosition()) {
 			std::cout << "przegrales" << std::endl;
-			window.close();
+			endgame = true;
 		}
 		window.clear();
 		for (int i = 0;i < 15 * 15;i++) {
@@ -90,5 +93,9 @@ void GameHandler::run() {
 		while (clock.getElapsedTime().asMilliseconds() < 40) {
 
 		}
+		if (endgame) {
+			return true;
+		}
 	}
+	return false;
 }
